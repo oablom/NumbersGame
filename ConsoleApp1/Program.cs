@@ -46,7 +46,7 @@ class NumGameClass
                 differenceNum = Math.Abs(differenceNum);
             }
 
-            if (input == number)
+            if (input == number) 
             {
                 Console.WriteLine($"{randomResponseArray[0, randomResponseNum]} Du klarade det!");
                 break;
