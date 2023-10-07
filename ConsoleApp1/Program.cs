@@ -2,9 +2,9 @@
 using System;
 using System.Reflection;
 
-class NumGameClass
+class NumberGameClass
 {
-    public static string MyMethod(int index, int guessesLeftIndex)
+    public static string GetGuessesLeft(int index, int guessesLeftIndex)
     {
         string guessesLeft;
         if (index >= guessesLeftIndex) {
@@ -29,18 +29,18 @@ class NumGameClass
 
         string[,] randomResponseArray = { { "Woohooo!!", "Snyggt!", "Sådärja!!" }, { "Ajdå,", "Synd,", "Ledsen," } };
         string[,] randomCloseResponseArray = { { "Nu bränns det!", "Du är rätt så nära nu.", "Nästan rätt ändå!" }, { "Du är långt ifrån rätt svar än.", "Du får nog gissa liite bättre!", "Bättre kan du!" } };
-
+        bool hasGuessedCorrectly = false;
         for (int i = 0; i < roundNum; i++)
         {
+         
 
-          
             int randomResponseNum = randomResponse.Next(0, 3);
             
-             
             Console.WriteLine($"Skriv in din gissning (ett heltal mellan 1-{maxNum}):");
             int input = int.Parse(Console.ReadLine());
 
             int differenceNum = input - number;
+
             if  (input-number < 1)
             {
                 differenceNum = Math.Abs(differenceNum);
@@ -49,6 +49,7 @@ class NumGameClass
             if (input == number) 
             {
                 Console.WriteLine($"{randomResponseArray[0, randomResponseNum]} Du klarade det!");
+                hasGuessedCorrectly = true;
                 break;
             }
             else if (input < number)
@@ -62,7 +63,7 @@ class NumGameClass
                 {
                     Console.WriteLine(randomCloseResponseArray[1, randomResponseNum]);
                 }
-                Console.WriteLine(MyMethod(i, roundNum -1));
+                Console.WriteLine(GetGuessesLeft(i, roundNum -1));
             
             }
             else if (input > number)
@@ -76,15 +77,18 @@ class NumGameClass
                 {
                     Console.WriteLine(randomCloseResponseArray[1, randomResponseNum]);
                 }
-                Console.WriteLine(MyMethod(i, roundNum - 1));
+                Console.WriteLine(GetGuessesLeft(i, roundNum - 1));
              
 
 
             }
-        }
-        Console.WriteLine("Tyvärr, du lyckades inte gissa talet på fem försök!\n" +
-            $"Det rätta svaret var {number}!\n\n");
         
+
+        }
+        if (!hasGuessedCorrectly)
+            Console.WriteLine($"Tyvärr, du lyckades inte gissa talet på {roundNum} försök!\n" +
+                $"Det rätta svaret var {number}!\n\n");
+
 
 
 
@@ -131,13 +135,6 @@ class NumGameClass
                 playAgain = false;
             }
         }
-
-
-     
-
-
-   
-
 
     }
 }
